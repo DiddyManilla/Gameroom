@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        button{
+            display:inline;
+        }
+        div.tab{
+            overflow:hidden;
+           border: 1px solid #cccccc;
+           background-color: #eee;
+        }
+        div.tabclick{
+            display:none;
+        }
+        
+        </style>
+        <title>Online Gameroom</title>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript">
+            var socket = io.connect();
+            document.getElementById("diceButton").onclick = function(){
+                socket.emit("getGame", "diceRoller");
+            };
+            function mOver(obj){
+                obj.style.backgroundColor="#0000ff";
+                obj.style.color="#ffffff"
+            }
+            function mOut(obj){
+                obj.style.backgroundColor="#000099";
+                obj.style.color="#aaaaaa"
+            }
+            function tabClick(obj){
+                var id = obj.id;
+                var dispID = id.substring(0,id.length-3);
+                document.getElementById(dispID).style.display="block";
+            }
+        </script>
+    </head>
+    <body bgcolor="#ffffff">
+        <h1><img src="img/logo2.jpg" alt="OnlineGameroom" style="width:400px;height:100px"></h1>
+        <!--<h1><a style="font-family:verdana;color:#ff3d0d;font-size:400%;background-color:#000000;text-decoration:none" href "https://gameroom-gravelpunch.c9users.io/index.html">onlinegameroom</a></h1>>-->
+            <div class="tab">
+                <button id="DicerollerTab" class="button" onclick=tabclick(this)>Diceroller</button>
+            </div>
+            <div id="Diceroller" class="tabclick">
+                <form action="diceroller" method = "get" actionclass="tablinks" id = "diceButton" type="submit" >
+                    <button  onmouseover=mOver(this) onmouseout=mOut(this) style="height:100px;width:200px;background-color:#000099;font-size:200%;font-family:verdana;color:#aaaaaa">Play DiceRoller</button>
+                </form>
+            </div>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "gameroom",
+  "version": "0.0.0",
+  "description": "An online gameroom written for the Mountainland 24 hour code camp",
+  "main": "server.js",
+  "repository": "",
+  "author": "Ctrl Z development team",
+  "dependencies": {
+    "async": "~0.2.8",
+    "express": "~3.2.4",
+    "socket.io": "~0.9.14"
+  }
+}

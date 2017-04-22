@@ -1,0 +1,47 @@
+body {
+    background-color: #ffffff;
+    
+}
+.tab{
+    background-color:#dd0000;
+    color:white;
+    font-family:verdana;
+    font-weight:bold;
+    font-size:200%;
+    width:33%;
+    height:100%;
+}
+div.tab{
+    overflow:hidden;
+   border: 1px solid #cccccc;
+   background-color: #eee;
+}
+div.tabclick{
+    display:none;
+}
+
+h2{
+    font-size:200%;
+    font-family:verdana;
+    font-weight:bold;
+}
+p{
+    font-size:200%;
+    font-family:verdana;
+    font-weight:bold;
+}
+#logo {
+    display:block;
+    width:600px;
+    height:150px;
+}
+#dice-roller-logo {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width:98%;
+    height:65%;
+}
+#Welcome {
+    text-align: center;
+}

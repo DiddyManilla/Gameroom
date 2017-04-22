@@ -1,0 +1,60 @@
+
+#messageBox{
+    position: absolute;
+    right: 0;
+    top:115px;
+    height: 360px;
+    width: 25%;
+}
+table {
+	width: 75%;
+	height:300px;
+}
+td{
+	color:white;
+	background-color:#990000;
+	font-family:verdana;
+	font-weight:bold;
+	font-size:400%;
+	text-align:center;
+	width: 10%;
+}
+tr{
+	height: 100px;
+}
+#messages {
+    
+    height: 360px;
+    overflow: scroll;
+    font-family: verdana;
+    background-color: #ddd;
+}
+#chatlog-names {
+    left: 0;
+}
+#chatlog-messages {
+    right: 0;
+}
+#button-send {
+    background-color: #009;
+    color: white;
+    width: 100%;
+    font-family: verdana;
+    font-weight: bold;
+}
+#name {
+    width: 30%;
+}
+#message {
+    width: 66%;
+}
+#instructions {
+    font-size:150%;
+    height: 200%;
+    overflow: scroll;
+    font-family: verdana;
+    background-color: #ddd;
+}
+ul{
+    list-style-type:none;
+}

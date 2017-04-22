@@ -1,0 +1,103 @@
+p {
+    height: 412px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-family: verdana;
+    background-color: #ddd;
+    font-size:140%;
+    text-align:center;
+}
+
+#stand,#sit{
+    background-color:#000099;
+    color:white;
+    height:20%;
+    width:40%;
+    font-size:200%;
+}
+#die-wrapper {
+    outline: 3px solid black;
+}
+#button-send {
+    background-color: #009;
+    color: white;
+    width: 100%;
+    font-family: verdana;
+    font-weight: bold;
+}
+ul{
+    list-style-type:none;
+    font-size:110%;
+}
+#name {
+    width: 30%;
+}
+#message {
+    width: 66%;
+}
+#dieFace {
+    position:absolute;
+    top:120px;
+    transform: translate(-90%, 0);
+    width: 40%;
+    margin-left: 50%;
+    margin-top: 0px;
+}
+#score{
+    color:white;
+    height:10%;
+    width:100%;
+}
+#messages{
+    
+    width: 100%;
+    height: 75%;
+}
+#chatlog-div {
+    height: 90%;
+    width: 100%;
+    overflow: scroll;
+    font-family: verdana;
+    background-color: #ffaaaa;
+}
+#chatlog-names {
+    left: 0;
+}
+#chatlog-messages {
+    bottom: 0;
+    right: 0;
+}
+#home {
+    width:30%;
+    height:7.5%;
+}
+#rest{
+    width: 75%;
+    position:absolute;
+    left: 25%;
+    top:79px;
+    height: 600px;
+    background-color:#3044bb;
+}
+#stand {
+    color: white;
+    background-color:#009;
+    font-weight:bold;
+    width:50%;
+    height:85px;
+}
+#sit {
+    position:absolute;
+    right:0px;
+    color: white;
+    background-color:#009;
+    width:50%;
+    height:85px;
+    font-weight:bold;
+}
+#sidebar{
+    width:25%;
+    height:703px;
+    float:left;
+}

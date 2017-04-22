@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+        <link rel="icon" href="http://www.freeiconspng.com/uploads/dice-png-30.png">
+        <title>Online Gameroom</title>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
+        <script type="text/javascript">
+            var socket = io.connect();
+            
+            
+        </script>
+    </head>
+    <body>
+        <a href="https://gameroom-gravelpunch.c9users.io">
+            <img id='logo' src="img/logo2.jpg" alt="OnlineGameroom">
+        </a>
+        <!--<h1><a style="font-family:verdana;color:#ff3d0d;font-size:400%;background-color:#000000;text-decoration:none" href "https://gameroom-gravelpunch.c9users.io/index.html">onlinegameroom</a></h1>>-->
+        <div id="tabs" style="height:60px">
+            <button class="tab" id="DicerollerTab">Diceroller</button>
+            <button class="tab" id="MancalaTab">Mancala</button>
+            <button class="tab" id="SenetTab">Senet</button>
+        </div>
+        <div id="Welcome">
+            <a href="https://gameroom-gravelpunch.c9users.io/senet?">
+                <image id="dice-roller-logo" src="img/ColdWarLogo.jpg">
+            </a>
+        </div>
+         
+        <div id="Diceroller" class="tabclick">
+            
+            <form action="diceroller" method = "get" actionclass="tablinks" id = "diceButton" type="submit" >
+                <button style="height:100px;width:100%;background-color:#000099;font-size:200%;font-family:verdana;color:#fff;font-weight:bold">Play DiceRoller</button>
+            </form>
+            
+             <h2>
+                How to Play: As the die is rolled, the number of pips on the die adds to the number of points. Click 'stand' after each round to continue playing. Click 'sit' to finalize your points. If two of the same number in a row are rolled, than the players still standing lose all of their points.
+            </h2>
+            <p>
+            </p>
+        </div>
+        <div id="Mancala" class="tabclick">
+            
+            <form action="mancala" method = "get" actionclass="tablinks" id = "mancalaButton" type="submit" >
+                <button style="height:100px;width:100%;background-color:#000099;font-size:200%;font-family:verdana;color:#fff;font-weight:bold">Play Mancala</button>
+            </form>
+             <h2>
+                How to Play: Mancala is a two player game. In each half of the board is a goal to store points. The players each take turns picking a circle. Each point in the circle is placed one at a time into consecutive circles including your goal, but not your opponent's. If the last point lands in your goal, you go again. A player wins by getting the most points in their goal.
+            </h2>
+            <p>
+            </p>
+        </div>
+        <div id="Senet" class="tabclick">
+            <form action="senet" method = "get" actionclass="tablinks" id = "senetButton" type="submit" >
+                <button style="height:100px;width:100%;background-color:#000099;font-size:200%;font-family:verdana;color:#fff;font-weight:bold">Play Senet</button>
+            </form>
+             <h2>
+                How to Play: the ,the number of spaces rolled yourSenet is a two player game.
+            </h2>
+            <p>
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	
+        <title>Cold War</title>
+        <link rel="icon" href="http://www.freeiconspng.com/uploads/dice-png-30.png">
+        <link rel="stylesheet" type="text/css" href="css/senet.css">
+        
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/senet.js"></script>
+       
+    </head>
+    
+    <body>
+        <a href="https://gameroom-gravelpunch.c9users.io"><img src="img/logo2.jpg" alt="OnlineGameroom" style="width:400px;height:100px"></a>
+        <table>
+            <tr>
+				<td id="p29" class="pit"></td>
+				<td id="p28" class="pit"></td>
+				<td id="p27" class="pit"></td>
+				<td id="p26" class="pit"></td>
+				<td id="p25" class="pit"></td>
+				<td id="p24" class="pit"></td>
+				<td id="p23" class="pit"></td>
+				<td id="p22" class="pit"></td>
+				<td id="p21" class="pit"></td>
+				<td id="p20" class="pit"></td>
+            </tr>
+			<tr>
+				<td id="p10" class="pit"></td>
+				<td id="p11" class="pit"></td>
+				<td id="p12" class="pit"></td>
+				<td id="p13" class="pit"></td>
+				<td id="p14" class="pit"></td>
+				<td id="p15" class="pit"></td>
+				<td id="p16" class="pit"></td>
+				<td id="p17" class="pit"></td>
+				<td id="p18" class="pit"></td>
+				<td id="p19" class="pit"></td>
+			</tr>
+			<tr>
+				<td id="p9" class="pit"><img id="p20i" width="100%" height="100px" src="img/senetpiece1.png"></td>
+				<td id="p8" class="pit"><img id="p21i" width="100%" height="100px" src="img/senetpiece2.png"></td>
+				<td id="p7" class="pit"><img id="p22i" width="100%" height="100px" src="img/senetpiece1.png"></td>
+				<td id="p6" class="pit"><img id="p23i" width="100%" height="100px" src="img/senetpiece2.png"></td>
+				<td id="p5" class="pit"><img id="p24i" width="100%" height="100px" src="img/senetpiece1.png"></td>
+				<td id="p4" class="pit"><img id="p25i" width="100%" height="100px" src="img/senetpiece2.png"></td>
+				<td id="p3" class="pit"><img id="p26i" width="100%" height="100px" src="img/senetpiece1.png"></td>
+				<td id="p2" class="pit"><img id="p27i" width="100%" height="100px" src="img/senetpiece2.png"></td>
+				<td id="p1" class="pit"><img id="p28i" width="100%" height="100px" src="img/senetpiece1.png"></td>
+				<td id="p0" class="pit"><img id="p29i" width="100%" height="100px" src="img/senetpiece2.png"></td>
+            </tr>
+        </table>
+        <table style="height:20px">
+            <tr style="height:50px">
+                <td class="stick" id="stick1" style="background-color:black;height:20px;color:black">__</td>
+                <td class="stick" id="stick2" style="background-color:black;height:20px;color:black">__</td>
+                <td class="stick" id="stick3" style="background-color:black;height:20px;color:black">__</td>
+                <td class="stick" id="stick4" style="background-color:black;height:20px;color:black">__</td>
+                <td id="roll" style="color:white;background-color:black;height:20px">Roll: -</td>
+            </tr>
+        </table>
+        <div id="messageBox">
+        <div id="messages">
+            
+                <div id="chatlog-div">
+                
+                    <ul id="chatlog-messages">
+                    </ul>
+                
+                </div>
+            
+            </div>   
+            <div id="send-div">
+                <input type="text" id="name" placeholder="Name">
+                <input type="text" id="message" placeholder="Message">
+                <input type="button" value="Send" id="button-send">
+            </div>
+        </div>
+        <div id ="instructions">
+            
+        </div>
+    </body>
+</html>

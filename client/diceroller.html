@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="http://www.freeiconspng.com/uploads/dice-png-30.png">
+        <link rel="stylesheet" type="text/css" href="css/diceroller.css"> 
+        <title>DiceRoller</title>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/diceRoller.js"></script>
+        <script type="text/javascript">
+            
+            
+        </script>
+    </head>
+    <body bgcolor="#fff">
+        
+        <div id="sidebar">
+            <a href="https://gameroom-gravelpunch.c9users.io"><img src="img/logo2.jpg" alt="OnlineGameroom" id="home" style="width:100%;height:150px"></a>
+            <div id="messages">
+                <div id="chatlog-div">
+                    <ul id="chatlog-messages">
+                    </ul>
+                </div>
+                <div id="send-div">
+                    <input type="text" id="name" placeholder="Name">
+                    <input type="text" id="message" placeholder="Message">
+                    <input type="button" value="Send" id="button-send">
+                </div>
+            </div>
+        </div>
+        
+        <div id="rest">
+            <div id="buttons">
+                <button id="sit">Sit</button>
+                <button id="stand">Stand</button>
+            </div>
+            
+            <image id="dieFace"></image>
+            <div style="position:absolute; top:85px; right:0px;width:20%;background-color:#3044ff;height:365px">
+            <h2 id="score" style="font-family:verdana;font-size:250%;">Score: 0</h2>
+            
+                 
+                 <p><b>How to Play:</b> As the die is rolled, the number of pips on the die 
+                 adds to the number of points. Click 'stand' after each round to continue 
+                 playing. Click 'sit' to finalize your points. If 
+                 two of the same number in a row are rolled, than 
+                 the players still standing lose all of their points.</p>
+            
+        </div>
+        </div>
+        
+    </body>
+</html>
