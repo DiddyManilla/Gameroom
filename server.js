@@ -483,10 +483,24 @@ io.of('/senet').on('connection', function(socket){
     //data here respresents the index of the cell they clicked.
     //checks if the move is valid
     //checks if that is their piece
-    if(
-      (senetGame.turn === 0 && senetGame.cells[data] === "am" && senetGame.cells[data+senetGame.getStickSum()] !== "am") ||
-      (senetGame.turn === 1 && senetGame.cells[data] === "su" && senetGame.cells[data+senetGame.getStickSum()] !== "su")
-    ) {
+    
+    var validMove = true;
+    if(senetGame.turn === 0 && senetGame.cells[data] !== "am" || senetGame.turn === 1 && senetGame.cells[data] !== "su"){ //If the player isn't clicking their own piece
+      validMove = false;
+    }
+    if(senetGame.turn === 0 && senetGame.cells[data+senetGame.getStickSum()] === "am" || senetGame.turn === 1 && senetGame.cells[data+senetGame.getStickSum()] === "su"){
+      validMove = false; //If the player is attempting to move onto their own piece
+    }
+    if(senetGame.turn === 0 && senetGame.cells[data+senetGame.getStickSum()] === "su" && 
+      (senetGame.cells[data+senetGame.getStickSum()+1] === "su" || senetGame.cells[data+senetGame.getStickSum()-1] === "su")){
+        validMove = false; //If an american is playing and they're going to land on a soviet and there is a soviet on either side of the target
+      }
+    
+    if(senetGame.turn === 1 && senetGame.cells[data+senetGame.getStickSum()] === "am" && 
+      (senetGame.cells[data+senetGame.getStickSum()+1] === "am" || senetGame.cells[data+senetGame.getStickSum()-1] === "am")){
+        validMove = false; //Same as above, but vise versa.
+      }
+    if(validMove) {
       //then the move is valid
       io.of("/senet").emit("chatMessage", {name:"Server", message:(senetGame.turn === 0 ? "Player 1" : "Player 2")+" made a valid move"});
     } else {
@@ -504,7 +518,7 @@ io.of('/senet').on('connection', function(socket){
         senetGame.ussrNukes++;
       }
       if(senetGame.usaNukes >= 5 || senetGame.ussrNukes >= 5){
-        io.of("/senet").emit("chatMessage", {name:"Server", message:(turn === 0 ? "The United States (Player 1)" : "The Soviet Union (Player 2)")+" has won!"});
+        io.of("/senet").emit("chatMessage", {name:"Server", message:(senetGame.turn === 0 ? "The United States (Player 1)" : "The Soviet Union (Player 2)")+" has won!"});
         senetGame.gameRunning = false;
         return;
       }

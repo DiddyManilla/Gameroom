@@ -81,6 +81,15 @@ $(document).ready(function() {
     
     socket.on('pushDieRoll', function(sticks) {
         
+        
+        
+        $('#stick1').css('background-color', sticks[0] == 1 ? '#000' : '#fff');
+        $('#stick2').css('background-color', sticks[1] == 1 ? '#000' : '#fff');
+        $('#stick3').css('background-color', sticks[2] == 1 ? '#000' : '#fff');
+        $('#stick4').css('background-color', sticks[3] == 1 ? '#000' : '#fff');
+        
+        
+        
         var sum = 0;
         sticks.forEach(function(stick){
             sum += stick;
