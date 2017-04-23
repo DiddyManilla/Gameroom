@@ -56,3 +56,14 @@ tr{
 ul{
     list-style-type:none;
 }
+#chat-title {
+    font-family: verdana;
+    font-size: 150%;
+    background-color: #3044ff;
+    color: white;
+    height: 20%;
+}
+#home-link {
+    width:400px;
+    height:100px;
+}
