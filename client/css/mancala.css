@@ -27,12 +27,6 @@ tr{
     font-family: verdana;
     background-color: #ddd;
 }
-#chatlog-names {
-    left: 0;
-}
-#chatlog-messages {
-    right: 0;
-}
 #button-send {
     background-color: #009;
     color: white;
