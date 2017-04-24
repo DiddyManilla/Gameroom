@@ -65,7 +65,7 @@ $(document).ready(function() {
         
         function setPits(index, firstPit) {
             
-            //firstPit is the 12-parsed pit to start with. It can never be an endzone.
+            //firstPit is the 14-parsed pit to start with. It can never be an endzone.
             //index is 14-parsed, and is the index that the function is recursing on right now. Compare to firstPit to terminate.
             
             
@@ -89,9 +89,10 @@ $(document).ready(function() {
             }
         }
         
-        //updates local pits with pits from server
-        data.firstPit = 0 <= data.firstPit && data.firstPit < 6 ? data.firstPit : data.firstPit + 1;
+        //Makes firstPit 14-parsed
+        data.firstPit = (0 <= data.firstPit && data.firstPit < 6) ? data.firstPit : data.firstPit + 1;
         
+        //updates local pits with pits from server
         setPits(data.firstPit, data.firstPit);
         
     });
