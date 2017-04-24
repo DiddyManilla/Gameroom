@@ -1,32 +1,58 @@
-#messageBox{
-    position: absolute;
-    right: 0;
-    top:80px;
-    height: 360px;
-    width: 25%;
+html {
+    height: 85%;
+}
+body {
+    height: 100%;
 }
 table {
 	width: 75%;
-	height:500%;
+	height: 65%;
 }
-td{
-	color:white;
-	background-color:#000099;
-	font-family:verdana;
-	font-weight:bold;
-	font-size:400%;
-	text-align:center;
+td {
+	color: white;
+	background-color: #000099;
+	font-family: verdana;
+	font-weight: bold;
+	font-size: 400%;
+	text-align: center;
 }
-tr{
-	height: 200px;
+tr {
+	height: 10%;
+}
+#messageBox {
+    position: absolute;
+    right: 0;
+    top: 115px;
+    height: 54%;
+    width: 25%;
+}
+#chat-title {
+    display: flex;
+    align-items: center;
+    font-family: verdana;
+    font-size: 150%;
+    background-color: #3044ff;
+    color: white;
+    height: 20%;
 }
 #messages {
     
-    height: 80%;
+    height: 70%;
     overflow-y: scroll;
     
     font-family: verdana;
     background-color: #ddd;
+}
+#send-div {
+    height: 10%;
+}
+#name {
+    width: 30%;
+}
+#message {
+    position: absolute;
+    right: 17px;
+    width: 60%;
 }
 #button-send {
     background-color: #009;
@@ -35,34 +61,27 @@ tr{
     font-family: verdana;
     font-weight: bold;
 }
-#name {
-    width: 32%;
-}
-#message {
-    width: 65%;
+#instructions-wrapper {
+    margin-top: 10px;
+    overflow-y: scroll;
+    height: 30%;
+    position: relative;
 }
 #instructions {
-    font-size:150%;
-    height: 170px;
-    overflow: scroll;
+    position: absolute;
+    top: 0px;
+    font-size: 150%;
     font-family: verdana;
     background-color: #ddd;
 }
 ul{
-    list-style-type:none;
-}
-#chat-title {
-    font-family: verdana;
-    font-size: 150%;
-    background-color: #3044ff;
-    color: white;
-    height: 20%;
+    list-style-type: none;
 }
 #home-link {
-    width:400px;
-    height:100px;
+    width: 400px;
+    height: 100px;
 }
-.pit {
+.pit, .goal {
     -webkit-user-select: none;
     khtml-user-select: none;
     moz-user-select: none;
