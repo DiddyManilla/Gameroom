@@ -12,24 +12,10 @@ $(document).ready(function() {
 		obj.css('backgroundColor', '#000099');
 	}
        
-    function sendMessage(){
-        console.log(socket);
-        socket.emit("chatMessage", {
-            "name": $("#name").val(),
-            "message": $("#message").val()
-        });
-        console.log("sending chat message");
-        console.log(socket);
-    }
     
-    $('#message').on('keydown', function(event) {
-        if (event.keyCode == 13) {
-            sendMessage();
-        }
-    });
-    
-    
-    $('#button-send').on('click', sendMessage);
+
+
+
     
     $('.pit').on('mouseover', function() {
         mOver($(this));
@@ -43,21 +29,22 @@ $(document).ready(function() {
     });
     
     
-    socket.on("chatMessage", function(data){
-       $("#chatlog-messages").append("<li><b>"+data.name+": </b>"+data.message+"</li>");
-    });
+    
 
     
     socket.on("kick", function() {
         socket.disconnect();
         console.log("disconnected");
     });
+
      $('#button-send').on('mouseover', function() {
         mOver($(this));
     }).on('mouseleave', function() {
         mOut($(this));
     });
+
     var updateID;
+
     socket.on("newData", function(data) {
         
         console.log(data);
@@ -96,4 +83,34 @@ $(document).ready(function() {
         setPits(data.firstPit, data.firstPit);
         
     });
+
+
+    //--------------CHAT-STUFF--------------//
+
+
+    function sendMessage() {
+
+        socket.emit("chatMessage", {
+            "name": $("#name").val(),
+            "message": $("#message").val()
+        });
+
+        console.log("sending chat message");
+
+    }
+    
+    $('#message').on('keydown', function(event) {
+        if (event.keyCode == 13) {
+            sendMessage();
+        }
+    });
+    
+    socket.on("chatMessage", function(data){
+       $("#chatlog-messages").append("<li><b>"+data.name+": </b>"+data.message+"</li>");
+       var chatdiv = $("#messages");
+       chatdiv.scrollTop(chatdiv.prop("scrollHeight"));
+    });
+
+    $('#button-send').on('click', sendMessage);
+    
 });
