@@ -403,10 +403,50 @@ var senetGame = {
   usaNukes: 0,
   
   getLegal:function(socket){
-    if(senetGame.gameRunning && io.of("/senet").clients().indexOf(socket) === senetGame.turn){
+    if(io.of("/senet").clients().indexOf(socket) === senetGame.turn){
       return true;
     }
     return false;
+  },
+  
+  isLegal: function(socket, data) {
+    
+    if (!senetGame.gameRunning) {
+      return false;
+    }
+    
+    if(!senetGame.getLegal(socket)) { //Return false if it's not their turn
+      return false;
+    }
+    
+    if(!senetGame.diceRolledYet) {
+      return false;
+    }
+    
+    //data here represents the index of the cell they clicked.
+    //checks if the move is valid
+    //checks if that is their piece
+    
+    
+    
+    if(senetGame.turn === 0 && senetGame.cells[data] !== "am" || senetGame.turn === 1 && senetGame.cells[data] !== "su"){ //If the player isn't clicking their own piece
+      return false;
+    }
+    
+    if(senetGame.turn === 0 && senetGame.cells[data+senetGame.getStickSum()] === "am" || senetGame.turn === 1 && senetGame.cells[data+senetGame.getStickSum()] === "su"){
+      return false; //If the player is attempting to move onto their own piece
+    }
+    
+    if(senetGame.turn === 0 && senetGame.cells[data+senetGame.getStickSum()] === "su" && 
+      (senetGame.cells[data+senetGame.getStickSum()+1] === "su" || senetGame.cells[data+senetGame.getStickSum()-1] === "su")){
+        return false; //If an american is playing and they're going to land on a soviet and there is a soviet on either side of the target
+    }
+    
+    if(senetGame.turn === 1 && senetGame.cells[data+senetGame.getStickSum()] === "am" && 
+      (senetGame.cells[data+senetGame.getStickSum()+1] === "am" || senetGame.cells[data+senetGame.getStickSum()-1] === "am")){
+        return false; //Same as above, but vise versa.
+    }
+    return true;
   },
   
   reset:function(){
@@ -417,7 +457,6 @@ var senetGame = {
     for(var i = 10; i < 30; i++){
       senetGame.cells[i] = "emp";
     }
-    
     senetGame.gameJoinable = true;
     senetGame.gameRunning = false;
     senetGame.turn = 0;
@@ -456,93 +495,107 @@ io.of('/senet').on('connection', function(socket){
   });
   
   socket.on("getDieRoll", function() {
-    if(!senetGame.getLegal(socket)) //returns if the game isn't running/it's not their turn.
+    if (!senetGame.gameRunning) {
       return;
-    if(senetGame.diceRolledYet){ //If the die was already rolled, don't roll it again
+    }
+    if(!senetGame.getLegal(socket)) { //returns if it's not their turn.
+      socket.emit("chatMessage", {name:"Server", message:"It's not your turn."});
+      return;
+    }
+    if(senetGame.diceRolledYet) { //If the die was already rolled, don't roll it again
       socket.emit("chatMessage", {name:"Server", message:"You already rolled the die."});
       return;
     }
+    
     
     for(var i = 0; i < 4; i++){
       senetGame.sticks[i] = Math.floor(Math.random()*2);
     }
     io.of("/senet").emit("pushDieRoll", senetGame.sticks);
     senetGame.diceRolledYet = true;
+    //Check whether the player whose turn it is can move
+
+    var canMove = false;
+    for (var i = 0, length = senetGame.cells.length, turn = senetGame.turn,
+                cells = senetGame.cells; i < length; i++) {
+                  
+      if (turn == 0 && cells[i] == "am" && senetGame.isLegal(socket, i)) {
+        canMove = true;
+      } else if (turn == 1 && cells[i] == "su" && senetGame.isLegal(socket, i)) {
+        canMove = true;
+      }
+    }
+    //If they can't,
+    if (!canMove) {
+      //Reverse turn, tell players
+      io.of("/senet").emit("chatMessage", {
+        name:"Server", 
+        message: `Player ${senetGame.turn + 1} cannot move. It is now Player ${(senetGame.turn === 0 ? 1 : 0) + 1}'s turn.`});
+      senetGame.turn = senetGame.turn === 0 ? 1 : 0;
+      senetGame.diceRolledYet = false;
+    } 
   });
   
   socket.on("turn", function(data){
     
-    if(!senetGame.getLegal(socket))
+    
+    if (!senetGame.gameRunning) {
       return;
-      
+    }
+    if (!senetGame.getLegal(socket)) {
+      socket.emit("chatMessage", {name:"Server", message:"It's not your turn."});
+      return;
+    }
     if(!senetGame.diceRolledYet){
       socket.emit("chatMessage", {name:"Server", message:"You need to roll the dice first."});
       return;
     }
     
-    //data here respresents the index of the cell they clicked.
-    //checks if the move is valid
-    //checks if that is their piece
-    
-    var validMove = true;
-    if(senetGame.turn === 0 && senetGame.cells[data] !== "am" || senetGame.turn === 1 && senetGame.cells[data] !== "su"){ //If the player isn't clicking their own piece
-      validMove = false;
-    }
-    if(senetGame.turn === 0 && senetGame.cells[data+senetGame.getStickSum()] === "am" || senetGame.turn === 1 && senetGame.cells[data+senetGame.getStickSum()] === "su"){
-      validMove = false; //If the player is attempting to move onto their own piece
-    }
-    if(senetGame.turn === 0 && senetGame.cells[data+senetGame.getStickSum()] === "su" && 
-      (senetGame.cells[data+senetGame.getStickSum()+1] === "su" || senetGame.cells[data+senetGame.getStickSum()-1] === "su")){
-        validMove = false; //If an american is playing and they're going to land on a soviet and there is a soviet on either side of the target
-      }
-    
-    if(senetGame.turn === 1 && senetGame.cells[data+senetGame.getStickSum()] === "am" && 
-      (senetGame.cells[data+senetGame.getStickSum()+1] === "am" || senetGame.cells[data+senetGame.getStickSum()-1] === "am")){
-        validMove = false; //Same as above, but vise versa.
-      }
-    if(validMove) {
-      //then the move is valid
-      io.of("/senet").emit("chatMessage", {name:"Server", message:(senetGame.turn === 0 ? "Player 1" : "Player 2")+" made a valid move"});
-    } else {
-      socket.emit("chatMessage", {name:"Server", message:"That move is against the rules of warfare"});
-      return; //Exits the event handler; there's nothing more it can do.
-    }
-    
-    //by now, the move is fully validated
-    //process the move
-    if(data+senetGame.getStickSum() > 29){
-      senetGame.cells[data] = "emp";
-      if(senetGame.turn === 0){
-        senetGame.usaNukes++;
+    var validMove = senetGame.isLegal(socket, data);
+    if (validMove) {
+      //by now, the move is fully validated
+      //process the move
+      if(data+senetGame.getStickSum() > 29){
+        //If the moved piece gets off the board
+        senetGame.cells[data] = "emp";
+        
+        if(senetGame.turn === 0) {
+          senetGame.usaNukes++;
+        } else {
+          senetGame.ussrNukes++;
+        }
+        if(senetGame.usaNukes >= 5 || senetGame.ussrNukes >= 5){
+          io.of("/senet").emit("chatMessage", {name:"Server", message:(senetGame.turn === 0 ? "The United States (Player 1)" : "The Soviet Union (Player 2)")+" has won!"});
+          io.of("/senet").emit("newData", senetGame.cells);
+          senetGame.gameRunning = false;
+          return;
+        }
+        
       } else {
-        senetGame.ussrNukes++;
+        var tmp = senetGame.cells[data+senetGame.getStickSum()]; //tmp is the value that's about to be replaced.
+        senetGame.cells[data+senetGame.getStickSum()] = senetGame.cells[data];
+        senetGame.cells[data] = tmp;
       }
-      if(senetGame.usaNukes >= 5 || senetGame.ussrNukes >= 5){
-        io.of("/senet").emit("chatMessage", {name:"Server", message:(senetGame.turn === 0 ? "The United States (Player 1)" : "The Soviet Union (Player 2)")+" has won!"});
-        senetGame.gameRunning = false;
-        return;
-      }
-    } else {
-      var tmp = senetGame.cells[data+senetGame.getStickSum()]; //tmp is the value that's about to be replaced.
-      senetGame.cells[data+senetGame.getStickSum()] = senetGame.cells[data];
-      senetGame.cells[data] = tmp;
-    }
       //by now, the original piece and the destination have been switched.
       io.of("/senet").emit("newData", senetGame.cells);
       
       //Down here at the end, switch the turns
       senetGame.turn = senetGame.turn === 0 ? 1 : 0;
       senetGame.diceRolledYet = false;
+    } else {
+      socket.emit("chatMessage", {name:"Server", message: "That move is against the rules of warfare."});
+    }
   });
     
   socket.on('chatMessage', function(data) {
     io.of('/senet').emit("chatMessage", data);
   });
+  
 });
 
 
 
-//Routing
+//-----------------Routing-------------------
 app.get("/", function(req, res) {
   
     res.sendfile(__dirname+"/client/index.html");
@@ -569,6 +622,7 @@ app.get("/", function(req, res) {
   }
 });
 
+io.set('log level', 1);
 server.listen(process.env.PORT || 8080, process.env.IP || 'localhost', function(){
     console.log("server began listening");
 });
