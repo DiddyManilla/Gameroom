@@ -618,6 +618,11 @@ app.get("/", function(req, res) {
   if (!senetGame.gameJoinable) {
     res.sendfile(path.join(__dirname + '/404.html'));
   } else {
+    //Stop browser from caching page
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    res.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    res.setHeader("Expires", "0"); // Proxies.
+    
     res.sendfile(path.join(__dirname + "/client/senet.html"));
   }
 });
