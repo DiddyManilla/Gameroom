@@ -25,7 +25,7 @@ tr{
 #messages {
     
     height: 360px;
-    overflow: scroll;
+    overflow-y: scroll;
     font-family: verdana;
     background-color: #ddd;
 }
